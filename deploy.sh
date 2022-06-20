@@ -72,6 +72,7 @@ echo "Action: ${ACTION}"
 echo ""
 echo "=== Applying action: ${ACTION} on backend ==="
 pushd ./backend
+terraform init
 aws_exec "terraform ${ACTION} --var aws_region=${REGION}"
 popd
 
@@ -80,7 +81,7 @@ if [[ "${ACTION}" = "${DEPLOY_ACTION}" ]]; then
   echo ""
   echo "=== Building Angular project ==="
   pushd ./frontend/aws-cognito-angular
-  npm run build:${STAGE}
+  ionic build
   popd
 
 fi
