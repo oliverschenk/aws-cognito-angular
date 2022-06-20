@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        icon="arrow-back-outline"
+        defaultHref="/"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate>
+    <input type="hidden" formControlName="id" />
+
+    <app-notification-card
+    [show]="(pageState$ | async).notification.show"
+    [message]="(pageState$ | async).notification.message"
+    [colour]="(pageState$ | async).notification.colour"
+  ></app-notification-card>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item
+      lines="none"
+      *ngIf="!profileForm.controls.name.valid && (profileForm.controls.name.dirty || submitAttempt)"
+    >
+      <ion-label color="danger">Name is required.</ion-label>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Company</ion-label>
+      <ion-input formControlName="company" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item
+      lines="none"
+      *ngIf="!profileForm.controls.company.valid && (profileForm.controls.company.dirty || submitAttempt)"
+    >
+      <ion-label color="danger">Company is required.</ion-label>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Role</ion-label>
+      <ion-input formControlName="role" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item
+      lines="none"
+      *ngIf="!profileForm.controls.role.valid && (profileForm.controls.role.dirty || submitAttempt)"
+    >
+      <ion-label color="danger">Role is required.</ion-label>
+    </ion-item>
+
+    <ion-button
+      class="submit-button"
+      type="submit"
+      expand="block"
+      [disabled]="!profileForm.valid"
+    >
+      <ion-spinner
+        *ngIf="(pageState$ | async).loading; else label"
+      ></ion-spinner>
+      <ng-template #label>Save</ng-template>
+    </ion-button>
+  </form>
+</ion-content>

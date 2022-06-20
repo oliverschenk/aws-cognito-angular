@@ -1,0 +1,36 @@
+.card {
+  margin: 0 auto;
+
+  .header {
+    height: 200px; // 20vh;
+
+    .avatar {
+      width: 160px; //40vw
+      height: 90px;
+      position: relative;
+      margin: 0 auto;
+
+      font-size: 8.5em;
+
+      ion-icon {
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        bottom: calc(-1 * (80px + 4px)); // -42px;
+        border: 8px solid var(--ion-color-secondary);
+        background-color: var(--ion-background-color);
+      }
+    }
+  }
+}
+
+.card-body {
+  background-color: var(--ion-background-color);
+  padding: 10px 30px;
+  height: 250px;
+  overflow: auto;
+
+  .loading-skeleton {
+    padding-top: 40px;
+  }
+}

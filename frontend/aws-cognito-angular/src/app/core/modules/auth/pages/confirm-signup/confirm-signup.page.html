@@ -1,0 +1,38 @@
+<ion-content class="ion-padding">
+  <div class="logo"><img src="../../assets/logo.png" /></div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+    <ion-item class="note">
+      <ion-label class="ion-text-wrap">
+        A code has been sent to your phone, please enter it below to confirm
+        your phone number.</ion-label
+      >
+    </ion-item>
+
+    <div class="form">
+      <ion-item lines="none">
+        <ion-label position="stacked" for="code">Code</ion-label>
+        <ion-input id="code" type="text" formControlName="code"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button
+      class="submit-button"
+      expand="block"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      <ion-spinner
+        *ngIf="(pageState$ | async).loading; else label"
+      ></ion-spinner>
+      <ng-template #label>Confirm</ng-template>
+    </ion-button>
+
+    <ion-button (click)="onResendCode()" expand="block" color="light"
+      >Resend Code</ion-button
+    >
+    <ion-button [routerLink]="['/auth/signin']" expand="block" color="light"
+      >Return to Login</ion-button
+    >
+  </form>
+</ion-content>

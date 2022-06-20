@@ -1,0 +1,68 @@
+<ion-content class="ion-padding">
+  <div class="logo"><img src="../../assets/logo.png" /></div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+    <div class="form">
+      <app-notification-card
+        [show]="(pageState$ | async).notification.show"
+        [message]="(pageState$ | async).notification.message"
+        [colour]="(pageState$ | async).notification.colour"
+      ></app-notification-card>
+
+      <ion-item lines="none">
+        <ion-label position="stacked" for="phone">Phone Number</ion-label>
+        <ion-input
+          id="phone"
+          type="text"
+          formControlName="phone"
+          autofocus="true"
+          #phone
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        lines="none"
+        *ngIf="!form.controls.phone.valid && (form.controls.phone.dirty || submitAttempt)"
+      >
+        <ion-label color="danger">Please enter a valid phone number.</ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked" for="password">Password</ion-label>
+        <ion-input
+          id="password"
+          type="password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item
+        lines="none"
+        *ngIf="!form.controls.password.valid && (form.controls.password.dirty || submitAttempt)"
+      >
+        <ion-label color="danger">Please enter a password.</ion-label>
+      </ion-item>
+    </div>
+
+    <ion-button
+      [disabled]="!form.valid"
+      class="submit-button"
+      expand="block"
+      type="submit"
+    >
+      <ion-spinner
+        *ngIf="(pageState$ | async).loading; else label"
+      ></ion-spinner>
+      <ng-template #label>Login</ng-template>
+    </ion-button>
+    <ion-button
+      [routerLink]="['/auth/reset-password']"
+      expand="block"
+      color="light"
+      >Reset Password</ion-button
+    >
+    <ion-button [routerLink]="['/auth/signup']" expand="block" color="light">
+      Create Account
+    </ion-button>
+  </form>
+</ion-content>

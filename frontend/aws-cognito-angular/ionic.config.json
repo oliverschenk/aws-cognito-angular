@@ -1,0 +1,7 @@
+{
+  "name": "aws-cognito-angular",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

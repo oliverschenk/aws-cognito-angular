@@ -1,0 +1,78 @@
+<ion-content class="ion-padding">
+  <div class="card">
+    <div class="header">
+      <div class="avatar">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="card-body">
+      <div *ngIf="(profileLoaded$ | async) === true; else elseBlock">
+        <div class="user-meta ion-text-center">
+          <h3>{{ (user$ | async).name }}</h3>
+          <span>{{ (user$ | async).phoneNumber }}</span>
+        </div>
+
+        <ion-item lines="none">
+          <ion-list>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>Role</h2>
+                <p>{{ (user$ | async).role }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>Company</h2>
+                <p>{{ (user$ | async).company }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+      </div>
+      <ng-template #elseBlock>
+        <div class="user-meta">
+          <div class="custom-skeleton">
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <ion-item lines="none">
+          <ion-list>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>Role</h2>
+                <ion-skeleton-text
+                  animated
+                  style="width: 120px"
+                ></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>Company</h2>
+                <ion-skeleton-text
+                  animated
+                  style="width: 120px"
+                ></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+      </ng-template>
+    </div>
+  </div>
+  <ion-button routerLink="edit" expand="block" color="light"
+    >Update Profile</ion-button
+  >
+  <ion-button
+    [routerLink]="['/auth/change-password']"
+    expand="block"
+    color="light"
+    >Change Password</ion-button
+  >
+  <ion-button class="sign-out-button" (click)="onSignout()" expand="block"
+    >Sign Out</ion-button
+  >
+</ion-content>
