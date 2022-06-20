@@ -25,7 +25,7 @@ export class ProfileService {
 
   async updateUserProfile(updatedUserProfile: UpdateUserProfileInput) {
     const attributes = {
-      name: this.updateUserProfile.name,
+      name: updatedUserProfile.name,
       'custom:company': updatedUserProfile.company,
       // eslint-disable-next-line @typescript-eslint/naming-convention
       'custom:role_name': updatedUserProfile.role,
