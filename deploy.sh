@@ -33,25 +33,25 @@ function aws_exec {
     ${AWS_VAULT_PREFIX}$1
 }
 
-function pushd () {
-    command pushd "$@" > /dev/null
+function pushd() {
+    command pushd "$@" >/dev/null
 }
 
-function popd () {
-    command popd "$@" > /dev/null
+function popd() {
+    command popd "$@" >/dev/null
 }
 
 while getopts "p:r:s:d" option; do
     case ${option} in
-        p ) AWS_VAULT_PROFILE=$OPTARG;;
-        r ) REGION=$OPTARG;;
-        s ) STAGE=$OPTARG;;
-        d ) ACTION=$DESTROY_ACTION;;
-        \? )
-            echo "Invalid option: -$OPTARG" 1>&2
-            usage
-            exit 1
-            ;;
+    p) AWS_VAULT_PROFILE=$OPTARG ;;
+    r) REGION=$OPTARG ;;
+    s) STAGE=$OPTARG ;;
+    d) ACTION=$DESTROY_ACTION ;;
+    \?)
+        echo "Invalid option: -$OPTARG" 1>&2
+        usage
+        exit 1
+        ;;
     esac
 done
 
@@ -78,11 +78,18 @@ popd
 
 if [[ "${ACTION}" = "${DEPLOY_ACTION}" ]]; then
 
-  echo ""
-  echo "=== Building Angular project ==="
-  pushd ./frontend/aws-cognito-angular
-  ionic build
-  popd
+    pushd ./frontend/aws-cognito-angular
+
+    echo ""
+    echo "=== Installing dependencies ==="
+    npm install --location=global @ionic/cli @angular/cli
+    npm install
+
+    echo ""
+    echo "=== Building Angular project ==="
+    ionic build
+
+    popd
 
 fi
 
